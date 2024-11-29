@@ -26,7 +26,7 @@ class CadastroActivity : ComponentActivity() {
             if (nome.isNotEmpty() && idadeString.isNotEmpty()) {
                 val idade = idadeString.toIntOrNull()
                 if (idade != null) {
-                    val url = "https://mockapi.com/usuarios"
+                    val url = "https://674952ec8680202966307f5f.mockapi.io/user"
                     val requestQueue = Volley.newRequestQueue(this)
 
                     val stringRequest = object : StringRequest(

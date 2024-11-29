@@ -22,7 +22,7 @@ class SorteioActivity : ComponentActivity() {
         val tvSorteado: TextView = findViewById(R.id.tvSorteado)
         val btnSorteio: Button = findViewById(R.id.btnSorteio)
 
-        val url = "https://mockapi.com/usuarios"
+        val url = "https://674952ec8680202966307f5f.mockapi.io/user"
         val requestQueue = Volley.newRequestQueue(this)
 
         val jsonArrayRequest = JsonArrayRequest(

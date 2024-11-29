@@ -19,7 +19,7 @@ class ListagemActivity : ComponentActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val url = "https://mockapi.com/usuarios"
+        val url = "https://674952ec8680202966307f5f.mockapi.io/user"
         val requestQueue = Volley.newRequestQueue(this)
 
         val jsonArrayRequest = JsonArrayRequest(
