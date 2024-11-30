@@ -1,32 +1,33 @@
 package com.example.appfinal
 
 import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import android.widget.TextView
 import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 
-data class Usuario(val nome: String, val idade: Int)
+class ItemAdapter(private var items: List<Item>) :
+    RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
-class UsuarioAdapter(private val usuarios: List<Usuario>) : RecyclerView.Adapter<UsuarioAdapter.UsuarioViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsuarioViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
-        return UsuarioViewHolder(view)
+    class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val nomeTextView: TextView = view.findViewById(R.id.nomeTextView)
+        val idadeTextView: TextView = view.findViewById(R.id.idadeTextView)
     }
 
-    override fun onBindViewHolder(holder: UsuarioViewHolder, position: Int) {
-        val usuario = usuarios[position]
-        holder.nomeTextView.text = usuario.nome
-        holder.idadeTextView.text = usuario.idade.toString()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout, parent, false)
+        return ItemViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        val item = items[position]
+        holder.nomeTextView.text = item.name
+        holder.idadeTextView.text = "Idade: ${item.idade}"
     }
 
     override fun getItemCount(): Int {
-        return usuarios.size
-    }
-
-    class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nomeTextView: TextView = itemView.findViewById(R.id.tvNome)
-        val idadeTextView: TextView = itemView.findViewById(R.id.tvIdade)
+        return items.size
     }
 }
+

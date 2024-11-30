@@ -18,9 +18,11 @@
         android:text="Listagem" />
 
     <Button
-        android:id="@+id/buttonSortear"
+        android:id="@+id/btnSorteio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sortear Pessoa" />
+        android:text="Sortear"
+        android:layout_centerInParent="true"/>
+
 
 </LinearLayout>

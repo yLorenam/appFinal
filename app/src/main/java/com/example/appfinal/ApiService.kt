@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
-    @GET("your-endpoint")
+    @GET("user")
     fun getList(): Call<List<Item>>
 
     @POST("your-endpoint")

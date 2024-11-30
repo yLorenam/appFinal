@@ -1,49 +1,45 @@
 package com.example.appfinal
 
-import androidx.activity.ComponentActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.Volley
-import org.json.JSONArray
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ListagemActivity : ComponentActivity() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var itemAdapter: ItemAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listagem)
 
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val url = "https://674952ec8680202966307f5f.mockapi.io/user"
-        val requestQueue = Volley.newRequestQueue(this)
+        // Configura o Adapter vazio inicialmente
+        itemAdapter = ItemAdapter(listOf())
+        recyclerView.adapter = itemAdapter
 
-        val jsonArrayRequest = JsonArrayRequest(
-            Request.Method.GET, url, null,
-            Response.Listener { response ->
-                val itemList = mutableListOf<Usuario>()
-                parseResponse(response, itemList)
-                val adapter = UsuarioAdapter(itemList)
-                recyclerView.adapter = adapter
-            },
-            Response.ErrorListener { error ->
-                Toast.makeText(this, "Erro ao carregar lista: ${error.message}", Toast.LENGTH_SHORT).show()
+        // Busca a lista da API
+        RetrofitInstance.api.getList().enqueue(object : Callback<List<Item>> {
+            override fun onResponse(call: Call<List<Item>>, response: Response<List<Item>>) {
+                if (response.isSuccessful && response.body() != null) {
+                    val items = response.body()!!
+                    itemAdapter = ItemAdapter(items)
+                    recyclerView.adapter = itemAdapter
+                } else {
+                    Toast.makeText(this@ListagemActivity, "Erro ao carregar lista.", Toast.LENGTH_SHORT).show()
+                }
             }
-        )
 
-        requestQueue.add(jsonArrayRequest)
-    }
-
-    private fun parseResponse(response: JSONArray, itemList: MutableList<Usuario>) {
-        for (i in 0 until response.length()) {
-            val usuario = response.getJSONObject(i)
-            val nome = usuario.getString("nome")
-            val idade = usuario.getInt("idade")
-            itemList.add(Usuario(nome, idade))
-        }
+            override fun onFailure(call: Call<List<Item>>, t: Throwable) {
+                Toast.makeText(this@ListagemActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

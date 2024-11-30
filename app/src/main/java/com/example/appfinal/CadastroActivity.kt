@@ -20,10 +20,10 @@ class CadastroActivity : ComponentActivity() {
         val btnCadastrar: Button = findViewById(R.id.btnCadastrar)
 
         btnCadastrar.setOnClickListener {
-            val nome = editName.text.toString()
+            val name = editName.text.toString()
             val idadeString = editIdade.text.toString()
 
-            if (nome.isNotEmpty() && idadeString.isNotEmpty()) {
+            if (name.isNotEmpty() && idadeString.isNotEmpty()) {
                 val idade = idadeString.toIntOrNull()
                 if (idade != null) {
                     val url = "https://674952ec8680202966307f5f.mockapi.io/user"
@@ -40,7 +40,7 @@ class CadastroActivity : ComponentActivity() {
                     ) {
                         override fun getParams(): MutableMap<String, String> {
                             val params = HashMap<String, String>()
-                            params["nome"] = nome
+                            params["name"] = name
                             params["idade"] = idade.toString()
                             return params
                         }

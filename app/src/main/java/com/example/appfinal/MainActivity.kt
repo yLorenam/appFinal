@@ -12,6 +12,7 @@ class MainActivity : ComponentActivity() {
 
         val btnCadastro: Button = findViewById(R.id.btnCadastro)
         val btnListagem: Button = findViewById(R.id.btnListagem)
+        val btnSorteio: Button = findViewById(R.id.btnSorteio)
 
         btnCadastro.setOnClickListener {
             val intent = Intent(this, CadastroActivity::class.java)
@@ -20,6 +21,11 @@ class MainActivity : ComponentActivity() {
 
         btnListagem.setOnClickListener {
             val intent = Intent(this, ListagemActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnSorteio.setOnClickListener {
+            val intent = Intent(this, SorteioActivity::class.java)
             startActivity(intent)
         }
     }
